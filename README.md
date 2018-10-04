@@ -1,4 +1,4 @@
-# 安装
+# 安装水龙头
 
 ## 环境
 
@@ -285,19 +285,60 @@ Established connection to 'ws://127.0.0.1:9991'
 
 之后在ubuntu或mac上运行一个SEER-UI dev环境，将此水龙头设为默认水龙头。
 
-操作步骤参考：https://github.com/seer-project/Seer-UI
+详细操作步骤参考：https://github.com/seer-project/Seer-UI
+
+### 简明SEER-UI部署流程
+
+将以下命令复制到终端中执行即可安装 NVM。
+```linux
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.2/install.sh | bash
+nvm install v6
+nvm use v6
+```
+Node 安装完成后，获取项目的源代码：
+```linux
+screen -S Seer-ui
+git clone https://github.com/seer-project/Seer-ui.git
+cd Seer-ui
+```
+修改钱包的默认水龙头：
+```linux
+nano app/api/apiConfig.js
+```
+修改apiConfig.js第49行的代码：
+```js
+DEFAULT_FAUCET: "https://www.seerapi.com",
+```
+修改为你的水龙头ip和端口，例如：
+```js
+DEFAULT_FAUCET: "http://206.189.169.23:3000",
+```
+在启动之前，需要先安装 npm 软件包：
+```linux
+npm install
+```
+所有软件包安装好后，可以使用以下命令启动开发服务器：
+```linux
+npm start
+```
+编译完成后，即可通过浏览器访问 localhost:9080 或 127.0.0.1:9080 打开钱包。
 
 ## 了解注册流程
 
+以上步骤中作为测试，仅修改了水龙头地址，默认SEER-UI依然使用SEER主网网络，若要将SEER-UI改为测试网络，还需要修改接入点和chain-id，此处不深入介绍。
+
 ### 查看水龙头
 
-在使用了此水龙头的SEER-UI注册新账号`"fffff"`成功后，可以在区块浏览器观察到如下信息：
+在使用了此水龙头的SEER-UI注册新账号`"fffff"`成功后，可以在测试网络区块浏览器 http://123.206.78.97/explorer/blocks 观察到如下信息：
 
 ```
 okok 注册了账户 fffff
 ```
-
-在screen faucet可以观察到如下信息：
+使用
+```linux
+screen -r faucet
+```
+恢复screen faucet，在screen faucet可以观察到如下信息：
 ```linux
 Started OPTIONS "/api/v1/accounts" for 112.44.141.143 at 2018-10-04 09:34:36 +0000
 Cannot render console from 112.44.141.143! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
@@ -327,10 +368,67 @@ call: [0, "register_account", ["fffff", "SEER7Ha3fpfBqt6zW1SsMjUHjguoGMPSDs3HS6K
   Rendered api/v1/accounts/show.json.jbuilder (2.7ms)
 Completed 201 Created in 1364ms (Views: 6.6ms | ActiveRecord: 4.6ms)
 ```
-而在screen seer可以观察到如下信息：
+完成后隐藏此screen:
+
+`Control` + `a` `d`
+
+而使用
+```linux
+screen -r seer
+```
+恢复screen seer，在screen seer可以观察到如下信息：
 
 ```cmd
 2078541ms th_a       websocket_api.cpp:109         on_message           ] API call execution time limit exceeded. method: call params: [0,"register_account",["fffff","SEER7Ha3fpfBqt6zW1SsMjUHjguoGMPSDs3HS6KQWGWUX4agSFDkU8","SEER6f7kZTPvA7g2aRZaFbBjDbNYLy3XT4m71VPdRMnGeZKczpFMms","okok","okok",0,true]] time: 1046857
 ```
+完成后隐藏此screen:
+
+`Control` + `a` `d`
+
 所以水龙头的作用是把SEER-UI或其它前端发起的包含用户名、公钥的注册请求，判断是否符合规则，然后将信息存入本地数据库后，调用命令行钱包来注册账号。
+
+## 水龙头的更多功能
+
+### 注册后自动向用户转账或发行资产
+
+您可以修改水龙头注册文件，让水龙头注册新用户后，自动向该账户转入一定数额的token，让用户体验DAPP功能。
+
+编辑注册文件：
+
+```linux
+nano seerfaucet/app/services/account_registrator.rb
+```
+第60-61行使用ruby的`#`注释掉的两行代码，分别是向新注册用户账户转入50万SEER测试币和新发行1000万BTC测试币给该用户。
+```ruby
+GrapheneCli.instance.exec('issue_asset', [account_name, '10000000', 'BTC', 'Welcome to SEER. https://Seer.best', true])
+GrapheneCli.instance.exec('transfer', [registrar_account, account_name, '500000', 'SEER', 'Welcome to SEERTALK. https://forum.seerchain.org', true])
+
+```
+去掉`#`，并改为您要使用的资产类型即可，若要使用资产发行功能，命令行钱包内需要有资产发行人的active key。
+
+修改后，需要切换到screen faucet，`Control` + `c`关闭水龙头，然后`rails s -b 0.0.0.0`重启。
+
+效果如下：
+
+注册新账号`dddddd`成功后，测试网络区块浏览器观察效果如下：
+
+```
+okok 将 500,000 SEER 转账给 dddddd
+else 将 10,000,000.0000 BTC 发行给 dddddd
+okok 注册了账户 dddddd
+```
+
+### 导出注册用户列表
+
+每次注册新用户，水龙头程序都会在mysql数据库中自动记录下注册用户的信息，笔者暂时没有测试出通过邮件接收注册信息的方法，但可以从数据库中直接将注册信息导出为根目录下的excel表格。方法如下：
+
+```linux
+mysql -p seer_faucet_dev -u root -e "select * from seer_accounts" > ~/seer.xls
+```
+`ls`就会发现根目录下多了一个`seer.xls`文件，在本地电脑的终端里输入：
+
+```
+scp root@服务器ip:seer.xls ~/seer.xls
+```
+即可将此文件下载到本地。
 

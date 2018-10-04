@@ -57,7 +57,8 @@ class AccountRegistrator
         else
             @logger.debug(result.inspect)
             res[:result] = result
-            #GrapheneCli.instance.exec('transfer', [registrar_account, account_name, '1000', 'QBITS', 'Welcome to OpenLedger. Read more about Qbits under asset', true])
+            #GrapheneCli.instance.exec('issue_asset', [account_name, '10000000', 'BTC', 'Welcome to SEER. https://Seer.best', true])
+            #GrapheneCli.instance.exec('transfer', [registrar_account, account_name, '500000', 'SEER', 'Welcome to SEERTALK. https://forum.seerchain.org', true])
         end
         return res
     end
