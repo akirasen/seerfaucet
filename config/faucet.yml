@@ -1,0 +1,16 @@
+cli_wallet_connection: ws://127.0.0.1:9991
+registrar_account: okok
+referrer_percent: 50
+refcode_prefix: F01
+
+default_url: 127.0.0.1
+default_port: 3000
+
+exception_notification:
+  sender_address: faucet@example.com
+  exception_recipients: admin@example.com
+
+smtp:
+  address: address
+  user_name: user
+  password: password

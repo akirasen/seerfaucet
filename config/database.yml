@@ -1,0 +1,19 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  pool: 5
+  username: root
+  password:
+  host: localhost
+
+development:
+  <<: *default
+  database: seer_faucet_dev
+
+test:
+  <<: *default
+  database: seer_faucet_test
+
+production:
+  <<: *default
+  database: seer_faucet
