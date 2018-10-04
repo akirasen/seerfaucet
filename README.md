@@ -15,7 +15,7 @@ screen -S seer
 ```linux
 mkdir seer
 ```
-下载最新版本SEER命令行钱包到seer目录，并重命名为seer.tar.gz
+下载最新版本SEER命令行钱包到seer目录，并重命名为seer.tar.gz，示例中的版本是0.0.4，请替换为最新版。
 ```linux
 curl -Lo seer/seer.tar.gz https://github.com/seer-project/seer-core-package/releases/download/v0.04/seer-ubuntu-0.0.4.tar.gz
 ```
@@ -41,8 +41,7 @@ cd seer
 tar xzvf seer.tar.gz
 ./cli_wallet --chain-id="da68a9c5f2fd9ed48e626ea301db1c77505523884ba0dd409e779246c6ea26cf" -s ws://123.206.78.97:8002 -r 127.0.0.1:9991 -H 127.0.0.1:9992
 ```
-
-设置钱包解锁密码，123替换为你想设置的密码
+钱包启动后，先设置钱包解锁密码，123替换为你想设置的密码
 ```cmd
 set_password 123
 ```
@@ -62,6 +61,7 @@ unlock 123
 import_key okok 5JkbV8aTaYRVaarTUJQ9Y56cr4QajxNFfCoQj6Q9JFL8XvUZ5CQ
 import_key else 5KiSC6rRAEkTj72fg3G3zF8RHmCEgZw7aSXBjKqDfvY2XN1qvyd
 ```
+钱包需要在unlocked状态，才能被水龙头调用。
 
 钱包连接正常的显示：
 ```linux
@@ -406,9 +406,11 @@ GrapheneCli.instance.exec('transfer', [registrar_account, account_name, '500000'
 ```
 去掉`#`，并改为您要使用的资产类型即可，若要使用资产发行功能，命令行钱包内需要有资产发行人的active key。
 
-修改后，需要切换到screen faucet，`Control` + `c`关闭水龙头，然后`rails s -b 0.0.0.0`重启。
+修改完成后使用`Control` + `o` `enter`保存修改，`Control` + `x`退出。
 
-效果如下：
+使用`screen -r faucet`切换到screen faucet，`Control` + `c`关闭水龙头，然后`rails s -b 0.0.0.0`重启。
+
+完成后隐藏此screen: `Control` + `a` `d`
 
 注册新账号`dddddd`成功后，测试网络区块浏览器观察效果如下：
 
