@@ -176,6 +176,8 @@ smtp:
   user_name: user                                  
   password: password 
 ```
+修改完成后使用`Control` + `o` `enter`保存修改，`Control` + `x`退出。
+
 ### 数据库配置database.yml
 
 ```linux
@@ -204,13 +206,24 @@ production:
   database: seer_faucet
 
 ```
+
+修改完成后使用`Control` + `o` `enter`保存修改，`Control` + `x`退出。
+
 ### 配置密码种子文件secrets.yml
 (ruby on rails用到的密码种子配置文件)
 生成三段随机密码种子
 ```linux
 rake secret
 ```
-
+例如：
+```linux
+root@ubuntu-s-1vcpu-1gb-sfo2-01:~/seerfaucet# rake secret
+7e39b462ad366a4bb3560281541274d04846dc0ec62c76ead47a66911e3e30015c8969ddade0d923720b5a593683ff96f9ada58f3f9c5c7cdc6a9fe85d846664
+root@ubuntu-s-1vcpu-1gb-sfo2-01:~/seerfaucet# rake secret
+e3812e46b183a2d04e2a29e30faea5ea33114cbf18128ae5dd4c5a6828d27d9d366bad658e987cbff5faed2ec0e3a6a4a1ed0c2d2910b00f1a7461663eb4e7fc
+root@ubuntu-s-1vcpu-1gb-sfo2-01:~/seerfaucet# rake secret
+89fdf6eb4c5a13abfde3ee1b6503d61e5e8e8b2ee3745dc125620a1f1e8b384ee9fb6f0957cb419621742807ca5a11185e63467f58cca23dd5da9f83af0317d5
+```
 然后将密码种子填入secrets.yml中，替换掉`abcdefg123456 `
 ```linux
 development:                                          
@@ -222,8 +235,11 @@ test:
 # Do not keep production secrets in the repository,   
 # instead read values from the environment.           
 production:                                           
-  secret_key_base: abcdefg123456   
+  secret_key_base: 89fdf6eb4c5a13abfde3ee1b6503d61e5e8e8b2ee3745dc125620a1f1e8b384ee9fb6f0957cb419621742807ca5a11185e63467f58cca23dd5da9f83af0317d5//示例  
 ```
+
+修改完成后使用`Control` + `o` `enter`保存修改，`Control` + `x`退出。
+
 ## 创建并初始化数据库
 
 ```linux
