@@ -190,7 +190,7 @@ default: &default
   encoding: utf8
   pool: 5
   username: root           #数据库登录用户名                   
-  password:                #数据库登录密码，根据安装mysql时的填写
+  password:                #数据库登录密码，根据安装mysql时的填写，千万注意:和密码之间应有空格，否则之后创建数据库时会报错
   host: localhost          #数据库url          
                                      
 development:
@@ -226,6 +226,9 @@ root@ubuntu-s-1vcpu-1gb-sfo2-01:~/seerfaucet# rake secret
 ```
 然后将密码种子填入secrets.yml中，替换掉`abcdefg123456 `
 ```linux
+nano config/secrets.yml
+```
+```nano
 development:                                          
   secret_key_base: abcdefg123456                      
                                                       
@@ -260,9 +263,23 @@ rails s -b 0.0.0.0
 
 `-b`，bind之意。是让本机以外的主机，能够访问水龙头服务。
 
+水龙头连接钱包正常的显示：
+```
+root@ubuntu-s-1vcpu-1gb-sfo2-01:~/seerfaucet# rails s -b 0.0.0.0
+=> Booting WEBrick
+=> Rails 4.2.4 application starting in development on http://0.0.0.0:3000
+=> Run `rails server -h` for more startup options
+=> Ctrl-C to shutdown server
+Starting graphene websocket communication event-loop 'ws://127.0.0.1:9991'
+Established connection to 'ws://127.0.0.1:9991'
+[2018-10-04 09:29:00] INFO  WEBrick 1.3.1
+[2018-10-04 09:29:00] INFO  ruby 2.2.3 (2015-08-18) [x86_64-linux]
+[2018-10-04 09:29:00] INFO  WEBrick::HTTPServer#start: pid=21639 port=3000
+```
+
 完成后隐藏此screen:
 
 `Control` + `a` `d`
 
 
-之后运行一个SEER-UI，将此水龙头设为默认水龙头
+之后运行一个SEER-UI，将此水龙头设为默认水龙头。
