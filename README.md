@@ -144,7 +144,7 @@ gem install bundler
 ## 下载水龙头代码
 
 ```linux
-git clone https://github.com/akirasen/faucet
+git clone https://github.com/akirasen/seerfaucet
 cd faucet
 bundle
 ```
