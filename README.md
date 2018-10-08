@@ -340,8 +340,8 @@ screen -r faucet
 ```
 恢复screen faucet，在screen faucet可以观察到如下信息：
 ```linux
-Started OPTIONS "/api/v1/accounts" for 112.44.141.143 at 2018-10-04 09:34:36 +0000
-Cannot render console from 112.44.141.143! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Started OPTIONS "/api/v1/accounts" for 142.93.42.172 at 2018-10-04 09:34:36 +0000
+Cannot render console from 142.93.42.172! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
   ActiveRecord::SchemaMigration Load (0.4ms)  SELECT `schema_migrations`.* FROM `schema_migrations`
 Processing by Api::BaseController#option as */*
   Parameters: {"path"=>"v1/accounts"}
@@ -349,12 +349,12 @@ Processing by Api::BaseController#option as */*
 Completed 200 OK in 16ms (Views: 6.0ms | ActiveRecord: 0.0ms)
 
 
-Started POST "/api/v1/accounts" for 112.44.141.143 at 2018-10-04 09:34:37 +0000
-Cannot render console from 112.44.141.143! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
+Started POST "/api/v1/accounts" for 142.93.42.172 at 2018-10-04 09:34:37 +0000
+Cannot render console from 142.93.42.172! Allowed networks: 127.0.0.1, ::1, 127.0.0.0/127.255.255.255
 Processing by Api::V1::AccountsController#create as JSON
   Parameters: {"account"=>{"name"=>"fffff", "owner_key"=>"SEER6f7kZTPvA7g2aRZaFbBjDbNYLy3XT4m71VPdRMnGeZKczpFMms", "active_key"=>"SEER7Ha3fpfBqt6zW1SsMjUHjguoGMPSDs3HS6KQWGWUX4agSFDkU8", "memo_key"=>"SEER7Ha3fpfBqt6zW1SsMjUHjguoGMPSDs3HS6KQWGWUX4agSFDkU8", "refcode"=>nil, "referrer"=>nil}}
    (0.2ms)  BEGIN
-  SeerAccount Exists (1.3ms)  SELECT  1 AS one FROM `seer_accounts` WHERE `seer_accounts`.`remote_ip` = BINARY '112.44.141.143' AND (created_at > '2018-10-04 09:29:37') LIMIT 1
+  SeerAccount Exists (1.3ms)  SELECT  1 AS one FROM `seer_accounts` WHERE `seer_accounts`.`remote_ip` = BINARY '142.93.42.172' AND (created_at > '2018-10-04 09:29:37') LIMIT 1
 ---- Registering account: 'fffff' SEER7Ha3fpfBqt6zW1SsMjUHjguoGMPSDs3HS6KQWGWUX4agSFDkU8/SEER6f7kZTPvA7g2aRZaFbBjDbNYLy3XT4m71VPdRMnGeZKczpFMms referrer: 
 call: [0, "get_account", ["fffff"]]
 call: [0, "get_account", ["fffff"]]
@@ -363,7 +363,7 @@ Websocket RPC Error: {"code"=>1, "message"=>"Assert Exception: rec && rec->name 
 call: [0, "register_account", ["fffff", "SEER7Ha3fpfBqt6zW1SsMjUHjguoGMPSDs3HS6KQWGWUX4agSFDkU8", "SEER6f7kZTPvA7g2aRZaFbBjDbNYLy3XT4m71VPdRMnGeZKczpFMms", "okok", "okok", 0, true]]
 call: [0, "register_account", ["fffff", "SEER7Ha3fpfBqt6zW1SsMjUHjguoGMPSDs3HS6KQWGWUX4agSFDkU8", "SEER6f7kZTPvA7g2aRZaFbBjDbNYLy3XT4m71VPdRMnGeZKczpFMms", "okok", "okok", 0, true]]
 {"ref_block_num"=>61162, "ref_block_prefix"=>2022767456, "expiration"=>"2018-10-04T09:35:06", "operations"=>[[4, {"fee"=>{"amount"=>514257, "asset_id"=>"1.3.0"}, "registrar"=>"1.2.105", "referrer"=>"1.2.105", "referrer_percent"=>0, "name"=>"fffff", "owner"=>{"weight_threshold"=>1, "account_auths"=>[], "key_auths"=>[["SEER7Ha3fpfBqt6zW1SsMjUHjguoGMPSDs3HS6KQWGWUX4agSFDkU8", 1]], "address_auths"=>[]}, "active"=>{"weight_threshold"=>1, "account_auths"=>[], "key_auths"=>[["SEER6f7kZTPvA7g2aRZaFbBjDbNYLy3XT4m71VPdRMnGeZKczpFMms", 1]], "address_auths"=>[]}, "options"=>{"memo_key"=>"SEER6f7kZTPvA7g2aRZaFbBjDbNYLy3XT4m71VPdRMnGeZKczpFMms", "voting_account"=>"1.2.5", "num_committee"=>0, "num_authenticator"=>0, "num_supervisor"=>0, "votes"=>[], "extensions"=>[]}, "extensions"=>{}}]], "extensions"=>[], "signatures"=>["1f19bf7e127acb07d8b56e183ba4839d53be35bb7aae233e407db6cc373bbc8f5c6e54fcf4b6252abe7a5a3be3a4b5724b3e4a32ae2595e5b9f22a7190453aac05"]}
-  SQL (0.5ms)  INSERT INTO `seer_accounts` (`name`, `owner_key`, `active_key`, `memo_key`, `remote_ip`, `created_at`, `updated_at`) VALUES ('fffff', 'SEER6f7kZTPvA7g2aRZaFbBjDbNYLy3XT4m71VPdRMnGeZKczpFMms', 'SEER7Ha3fpfBqt6zW1SsMjUHjguoGMPSDs3HS6KQWGWUX4agSFDkU8', 'SEER7Ha3fpfBqt6zW1SsMjUHjguoGMPSDs3HS6KQWGWUX4agSFDkU8', '112.44.141.143', '2018-10-04 09:34:37', '2018-10-04 09:34:37')
+  SQL (0.5ms)  INSERT INTO `seer_accounts` (`name`, `owner_key`, `active_key`, `memo_key`, `remote_ip`, `created_at`, `updated_at`) VALUES ('fffff', 'SEER6f7kZTPvA7g2aRZaFbBjDbNYLy3XT4m71VPdRMnGeZKczpFMms', 'SEER7Ha3fpfBqt6zW1SsMjUHjguoGMPSDs3HS6KQWGWUX4agSFDkU8', 'SEER7Ha3fpfBqt6zW1SsMjUHjguoGMPSDs3HS6KQWGWUX4agSFDkU8', '142.93.42.172', '2018-10-04 09:34:37', '2018-10-04 09:34:37')
    (1.4ms)  COMMIT
   Rendered api/v1/accounts/show.json.jbuilder (2.7ms)
 Completed 201 Created in 1364ms (Views: 6.6ms | ActiveRecord: 4.6ms)
